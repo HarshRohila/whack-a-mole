@@ -1,4 +1,4 @@
-import React, { FC } from "react"
+import React, { FC, useEffect, useState } from "react"
 import { Hole } from "@app/components/Hole"
 import { styled } from "@app/libs/style"
 import Config from "@app/config"
@@ -16,12 +16,26 @@ const HolesContainer = styled.ul`
 interface GamePageProps {}
 
 const GamePage: FC<GamePageProps> = () => {
+  const [moleIndex, setMoleIndex] = useState<number | undefined>()
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const randIndex = generateRandomNumber(0, Config.HOLES_COUNT - 1)
+
+      setMoleIndex(randIndex)
+    }, Config.MOLE_INTERVAL_IN_MS)
+
+    return () => {
+      clearInterval(interval)
+    }
+  }, [])
+
   return (
     <>
       <HolesContainer>
         {Array.from({ length: Config.HOLES_COUNT }).map((_, i) => (
           <li key={i}>
-            <Hole />
+            <Hole showMole={moleIndex === i} />
           </li>
         ))}
       </HolesContainer>
@@ -30,6 +44,10 @@ const GamePage: FC<GamePageProps> = () => {
       </div>
     </>
   )
+}
+
+function generateRandomNumber(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
 export { GamePage }
