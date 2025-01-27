@@ -16,14 +16,15 @@ const GamePageService = {
     state.next({ ...state.value, activePage: page })
   },
   startGame() {
+    this.setScore(() => 0)
     this.setActive(GamePage.GAME)
   },
   stopGame() {
     this.setActive(GamePage.MENU)
   },
-  gameOver({ score }: { score: number }) {
+  gameOver() {
     this.stopGame()
-    console.log(`Game Over! Your score is ${score}`)
+    console.log(`Game Over! Your score is ${score.value}`)
   },
   setScore(setter: (value: number) => number) {
     score.next(setter(score.value))

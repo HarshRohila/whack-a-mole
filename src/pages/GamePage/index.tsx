@@ -77,11 +77,11 @@ function TimeLeft() {
     }
   }, [])
 
-  const score = useStreamState(GamePageService.score$, 0)
-
-  if (time === 0) {
-    GamePageService.gameOver({ score })
-  }
+  useEffect(() => {
+    if (time === 0) {
+      GamePageService.gameOver()
+    }
+  }, [time])
 
   return <div>Time Left: {time}</div>
 }
