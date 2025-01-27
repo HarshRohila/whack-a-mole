@@ -1,4 +1,5 @@
 import { styled } from "@app/libs/style"
+import { GamePageService } from "@app/services/GamePageService"
 import React, { FC } from "react"
 
 interface HoleProps {
@@ -13,7 +14,17 @@ const StyledHole = styled.div<HoleProps>`
 `
 
 const Hole: FC<HoleProps> = (props) => {
-  return <StyledHole showMole={props.showMole}>Hole</StyledHole>
+  const handleClick = () => {
+    if (props.showMole) {
+      GamePageService.setScore((prev) => prev + 1)
+    }
+  }
+
+  return (
+    <StyledHole onClick={handleClick} showMole={props.showMole}>
+      Hole
+    </StyledHole>
+  )
 }
 
 export { Hole }

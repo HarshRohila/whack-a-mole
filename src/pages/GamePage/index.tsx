@@ -3,6 +3,8 @@ import { Hole } from "@app/components/Hole"
 import { styled } from "@app/libs/style"
 import Config from "@app/config"
 import { StopBtn } from "@app/components/StopBtn"
+import { GamePageService } from "@app/services/GamePageService"
+import { useStreamState } from "@app/utils/rx-state-utils"
 
 const HolesContainer = styled.ul`
   display: flex;
@@ -14,6 +16,12 @@ const HolesContainer = styled.ul`
 `
 
 interface GamePageProps {}
+
+const Dashboard = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+`
 
 const GamePage: FC<GamePageProps> = () => {
   const [moleIndex, setMoleIndex] = useState<number | undefined>()
@@ -32,6 +40,10 @@ const GamePage: FC<GamePageProps> = () => {
 
   return (
     <>
+      <Dashboard>
+        <Score />
+        <TimeLeft />
+      </Dashboard>
       <HolesContainer>
         {Array.from({ length: Config.HOLES_COUNT }).map((_, i) => (
           <li key={i}>
@@ -44,6 +56,34 @@ const GamePage: FC<GamePageProps> = () => {
       </div>
     </>
   )
+}
+
+function Score() {
+  const score = useStreamState(GamePageService.score$, 0)
+
+  return <div>Score: {score}</div>
+}
+
+function TimeLeft() {
+  const [time, setTime] = useState(Config.GAME_DURATION_IN_SEC)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime((prev) => prev - 1)
+    }, 1000)
+
+    return () => {
+      clearInterval(interval)
+    }
+  }, [])
+
+  const score = useStreamState(GamePageService.score$, 0)
+
+  if (time === 0) {
+    GamePageService.gameOver({ score })
+  }
+
+  return <div>Time Left: {time}</div>
 }
 
 function generateRandomNumber(min: number, max: number) {
