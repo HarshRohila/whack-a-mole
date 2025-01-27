@@ -4,8 +4,8 @@ import React, { FC } from "react"
 interface HoleProps {}
 
 const StyledHole = styled.div`
-  width: 100px;
-  height: 150px;
+  width: 150px;
+  height: 180px;
   border: 1px solid black;
 `
 
