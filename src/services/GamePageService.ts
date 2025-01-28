@@ -1,3 +1,4 @@
+import { ModalController } from "@app/components/Modal"
 import { createState } from "@app/utils/rx-state-utils"
 
 enum GamePage {
@@ -24,7 +25,9 @@ const GamePageService = {
   },
   gameOver() {
     this.stopGame()
-    console.log(`Game Over! Your score is ${score.value}`)
+    ModalController.showModal({
+      message: `Game Over! Your score is ${score.value}`,
+    })
   },
   setScore(setter: (value: number) => number) {
     score.next(setter(score.value))
