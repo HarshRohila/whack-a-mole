@@ -12,6 +12,7 @@ const HolesContainer = styled.ul`
   padding: 0;
   flex-wrap: wrap;
   gap: 20px;
+  column-gap: 50px;
   justify-content: center;
 `
 
@@ -21,6 +22,20 @@ const Dashboard = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  padding: 5px 0;
+  font-size: 1.2rem;
+`
+
+const Container = styled.div`
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100%;
+`
+
+const Controls = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 20px;
 `
 
 const GamePage: FC<GamePageProps> = () => {
@@ -39,7 +54,7 @@ const GamePage: FC<GamePageProps> = () => {
   }, [])
 
   return (
-    <>
+    <Container>
       <Dashboard>
         <Score />
         <TimeLeft />
@@ -51,10 +66,10 @@ const GamePage: FC<GamePageProps> = () => {
           </li>
         ))}
       </HolesContainer>
-      <div className="controls">
+      <Controls>
         <StopBtn />
-      </div>
-    </>
+      </Controls>
+    </Container>
   )
 }
 

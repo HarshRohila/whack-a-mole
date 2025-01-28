@@ -7,8 +7,8 @@ interface HoleProps {
 }
 
 const StyledHole = styled.div<{ $showMole: boolean }>`
-  width: 150px;
-  height: 180px;
+  width: 120px;
+  height: 150px;
   border: 1px solid black;
   background-color: ${(props) => (props.$showMole ? "brown" : "green")};
 `

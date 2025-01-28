@@ -1,1 +1,1 @@
-export { Play } from "lucide-react"
+export { Play, CircleStop } from "lucide-react"
