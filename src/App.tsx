@@ -5,6 +5,9 @@ import { GamePage as Game } from "./pages/GamePage"
 import { Menu } from "./pages/Menu"
 import { Modal, ModalController } from "./components/Modal"
 
+import "bootstrap/dist/css/bootstrap.min.css"
+import { useStateStream } from "./hooks/useStateStream"
+
 function App() {
   const [gamePage, setGamePage] = useState(GamePage.MENU)
 
@@ -12,13 +15,13 @@ function App() {
     setGamePage(activePage)
   })
 
-  const modalState = ModalController.useState()
+  const modalState = useStateStream(ModalController.state)
 
   return (
     <>
       {gamePage === GamePage.MENU && <Menu />}
       {gamePage === GamePage.GAME && <Game />}
-      {modalState && <Modal modalData={modalState} />}
+      {modalState && <Modal modalData={modalState.modalData} />}
     </>
   )
 }

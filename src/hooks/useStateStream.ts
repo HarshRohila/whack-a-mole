@@ -1,7 +1,9 @@
 import { createState } from "@rx-state-utils/react"
 import { useEffect, useState } from "react"
 
-function useStateStream<T>(state: ReturnType<typeof createState<T>>) {
+type ReadOnlyState<T> = Omit<ReturnType<typeof createState<T>>, "update">
+
+function useStateStream<T>(state: ReadOnlyState<T>) {
   const [_state, setState] = useState<T>(state.get())
 
   useEffect(() => {
@@ -12,8 +14,6 @@ function useStateStream<T>(state: ReturnType<typeof createState<T>>) {
 
   return _state
 }
-
-type ReadOnlyState<T> = Omit<ReturnType<typeof createState<T>>, "update">
 
 function readOnlyState<T>(
   state: ReturnType<typeof createState<T>>

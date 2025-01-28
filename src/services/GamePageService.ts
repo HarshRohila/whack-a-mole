@@ -26,7 +26,8 @@ const GamePageService = {
   gameOver() {
     this.stopGame()
     ModalController.showModal({
-      message: `Game Over! Your score is ${score.value}`,
+      title: "Game Over!",
+      message: `Your score is ${score.value}`,
     })
   },
   setScore(setter: (value: number) => number) {

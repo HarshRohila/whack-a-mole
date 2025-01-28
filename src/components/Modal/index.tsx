@@ -1,24 +1,31 @@
 import React, { FC } from "react"
 import { ModalData } from "./controller"
-import { styled } from "@app/libs/style"
+import Modal from "react-bootstrap/Modal"
+import { ModalController } from "./controller"
 
 interface ModalProps {
-  modalData: ModalData
+  modalData: ModalData | undefined
 }
 
-const StyledModal = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 20px;
-  background-color: white;
-  border: 1px solid black;
-`
+const ModalComponent: FC<ModalProps> = (props) => {
+  const show = !!props.modalData
 
-const Modal: FC<ModalProps> = (props) => {
-  return <StyledModal>{props.modalData.message}</StyledModal>
+  const handleClose = () => {
+    ModalController.hideModal()
+  }
+
+  return (
+    <Modal show={show} onHide={handleClose} centered>
+      {props.modalData && (
+        <>
+          <Modal.Header closeButton>
+            <Modal.Title>{props.modalData.title}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>{props.modalData.message}</Modal.Body>
+        </>
+      )}
+    </Modal>
+  )
 }
 
-export { Modal }
-export { ModalController } from "./controller"
+export { ModalComponent as Modal, ModalController }
