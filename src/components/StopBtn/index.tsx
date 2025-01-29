@@ -7,7 +7,7 @@ interface StopBtnProps {}
 
 const StopBtn: FC<StopBtnProps> = () => {
   const handleClick = () => {
-    GamePageService.stopGame()
+    GamePageService.gameOver()
   }
 
   return (
