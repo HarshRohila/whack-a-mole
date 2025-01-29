@@ -49,11 +49,11 @@ Error generating stack: `+s.message+`
       ${o}
     }
   `}const Eg=Lt.div`
+  width: 120px;
   ${$s(_o`
     width: 300px;
   `)}
 
-  width: 120px;
   /* border: 1px solid black; */
   display: flex;
   flex-direction: column;
@@ -65,9 +65,9 @@ Error generating stack: `+s.message+`
     overflow: hidden;
 
     position: relative;
+
     top: 19px;
     left: -4px;
-
     ${$s(_o`
       top: 47px;
       left: -11px;
@@ -78,6 +78,7 @@ Error generating stack: `+s.message+`
       // apppy transition based on transform
       transition: transform 0.1s;
 
+      transform: ${o=>o.$showMole?"translateY(0)":"translateY(50px)"};
       @media (min-width: 1025px) {
         transform: ${o=>o.$showMole?"translateY(0)":"translateY(130px)"};
       }
