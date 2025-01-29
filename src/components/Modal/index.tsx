@@ -15,7 +15,7 @@ const ModalComponent: FC<ModalProps> = (props) => {
   }
 
   return (
-    <Modal show={show} onHide={handleClose} centered>
+    <Modal show={show} onHide={handleClose} centered backdrop="static">
       {props.modalData && (
         <>
           <Modal.Header closeButton>
