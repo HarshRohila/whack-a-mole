@@ -1,4 +1,4 @@
-import { styled } from "@app/libs/style"
+import { css, styled } from "@app/libs/style"
 import { GamePageService } from "@app/services/GamePageService"
 import React, { FC } from "react"
 import dirt from "@app/assets/mole-hill.png"
@@ -6,13 +6,17 @@ import mole from "@app/assets/mole-head.png"
 import whack from "@app/assets/whack.png"
 import moleWhackSound from "@app/assets/whack.mp3"
 import Config from "@app/config"
+import { desktopCss } from "@app/utils/desktop-css"
 interface HoleProps {
   showMole: boolean
 }
 
 const StyledHole = styled.div<{ $showMole: boolean }>`
   width: 120px;
-  height: 150px;
+  ${desktopCss(css`
+    width: 300px;
+  `)}
+
   /* border: 1px solid black; */
   display: flex;
   flex-direction: column;
@@ -24,14 +28,25 @@ const StyledHole = styled.div<{ $showMole: boolean }>`
     overflow: hidden;
 
     position: relative;
+
     top: 19px;
     left: -4px;
+    ${desktopCss(css`
+      top: 47px;
+      left: -11px;
+    `)}
+
     img.mole-img {
       width: 100%;
       // apppy transition based on transform
       transition: transform 0.1s;
+
       transform: ${(props) =>
         props.$showMole ? "translateY(0)" : "translateY(50px)"};
+      @media (min-width: 1025px) {
+        transform: ${(props) =>
+          props.$showMole ? "translateY(0)" : "translateY(130px)"};
+      }
     }
   }
   .dirt {

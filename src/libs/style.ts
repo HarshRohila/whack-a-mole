@@ -1,1 +1,2 @@
-export { default as styled } from "styled-components"
+export { default as styled, css } from "styled-components"
+export type { RuleSet } from "styled-components"

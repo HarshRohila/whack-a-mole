@@ -1,13 +1,21 @@
 import { FC, useEffect, useState } from "react"
 import { Hole } from "@app/components/Hole"
-import { styled } from "@app/libs/style"
+import { css, styled } from "@app/libs/style"
 import Config from "@app/config"
 import { StopBtn } from "@app/components/StopBtn"
 import { GamePageService } from "@app/services/GamePageService"
 import { useStreamState } from "@app/utils/rx-state-utils"
+import { desktopCss } from "@app/utils/desktop-css"
 
 const HolesContainer = styled.ul`
   display: flex;
+
+  max-width: 788px;
+  ${desktopCss(css`
+    max-width: 1500px;
+  `)}
+
+  margin: auto;
   list-style-type: none;
   padding: 0;
   flex-wrap: wrap;
