@@ -1,4 +1,4 @@
-import React, { FC } from "react"
+import { FC } from "react"
 import { ModalData } from "./controller"
 import Modal from "react-bootstrap/Modal"
 import { ModalController } from "./controller"

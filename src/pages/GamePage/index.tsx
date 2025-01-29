@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react"
+import { FC, useEffect, useState } from "react"
 import { Hole } from "@app/components/Hole"
 import { styled } from "@app/libs/style"
 import Config from "@app/config"

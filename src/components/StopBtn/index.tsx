@@ -1,5 +1,5 @@
 import { GamePageService } from "@app/services/GamePageService"
-import React, { FC } from "react"
+import { FC } from "react"
 import { Button } from "../Button"
 import { CircleStop } from "../Icons"
 
