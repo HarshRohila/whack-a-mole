@@ -3,6 +3,9 @@ import { GamePageService } from "@app/services/GamePageService"
 import React, { FC } from "react"
 import dirt from "@app/assets/mole-hill.png"
 import mole from "@app/assets/mole-head.png"
+import whack from "@app/assets/whack.png"
+import moleWhackSound from "@app/assets/whack.mp3"
+import Config from "@app/config"
 interface HoleProps {
   showMole: boolean
 }
@@ -21,9 +24,9 @@ const StyledHole = styled.div<{ $showMole: boolean }>`
     overflow: hidden;
 
     position: relative;
-    top: 17px;
+    top: 19px;
     left: -4px;
-    img {
+    img.mole-img {
       width: 100%;
       // apppy transition based on transform
       transition: transform 0.1s;
@@ -37,18 +40,51 @@ const StyledHole = styled.div<{ $showMole: boolean }>`
   }
 `
 
+const WhackImg = styled.img<{ $isWhacked: boolean }>`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: none;
+  display: ${(props) => (props.$isWhacked ? "block" : "none")};
+  z-index: 1;
+`
+const MoleContainer = styled.div`
+  position: relative;
+`
+
 const Hole: FC<HoleProps> = (props) => {
+  const [isWhacked, setIsWhacked] = React.useState(false)
+  const [showMole, setShowMole] = React.useState(false)
+  const whackSound = new Audio(moleWhackSound)
+
+  React.useEffect(() => {
+    setShowMole(props.showMole)
+  }, [props.showMole])
+
+  React.useEffect(() => {
+    if (showMole) {
+      setTimeout(() => {
+        setShowMole(false)
+      }, Config.MOLE_LIFE_TIME_IN_MS)
+    }
+  }, [showMole])
+
   const handleClick = () => {
-    if (props.showMole) {
+    if (showMole) {
       GamePageService.setScore((prev) => prev + 1)
+      setIsWhacked(true)
+      setShowMole(false)
+      whackSound.play()
+      setTimeout(() => setIsWhacked(false), 500)
     }
   }
 
   return (
-    <StyledHole onClick={handleClick} $showMole={props.showMole}>
-      <div className="mole">
-        <img src={mole} alt="mole" />
-      </div>
+    <StyledHole onClick={handleClick} $showMole={showMole}>
+      <MoleContainer className="mole">
+        <WhackImg $isWhacked={isWhacked} src={whack} alt="whack" />
+        <img src={mole} className="mole-img" alt="mole" />
+      </MoleContainer>
       <img src={dirt} className="dirt" alt="dirt" />
     </StyledHole>
   )
