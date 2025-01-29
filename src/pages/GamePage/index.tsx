@@ -43,15 +43,14 @@ const GamePage: FC<GamePageProps> = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const randIndex = generateRandomNumber(0, Config.HOLES_COUNT - 1)
-
+      const randIndex = generateUniqueMoleIndex(moleIndex)
       setMoleIndex(randIndex)
     }, Config.MOLE_INTERVAL_IN_MS)
 
     return () => {
       clearInterval(interval)
     }
-  }, [])
+  }, [moleIndex])
 
   return (
     <Container>
@@ -71,6 +70,15 @@ const GamePage: FC<GamePageProps> = () => {
       </Controls>
     </Container>
   )
+}
+
+function generateUniqueMoleIndex(moleIndex: number | undefined) {
+  let randIndex = generateRandomNumber(0, Config.HOLES_COUNT - 1)
+  while (randIndex === moleIndex) {
+    randIndex = generateRandomNumber(0, Config.HOLES_COUNT - 1)
+  }
+
+  return randIndex
 }
 
 function Score() {
