@@ -133,7 +133,7 @@ Error generating stack: `+s.message+`
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
- */const zg=[["polygon",{points:"6 3 20 12 6 21 6 3",key:"1oa8hb"}]],Dg=Np("Play",zg),Ag=()=>{const o=()=>{Or.stopGame()};return D.jsx(_p,{onClick:o,icon:jg,children:"Stop"})},Fg=Lt.ul`
+ */const zg=[["polygon",{points:"6 3 20 12 6 21 6 3",key:"1oa8hb"}]],Dg=Np("Play",zg),Ag=()=>{const o=()=>{Or.gameOver()};return D.jsx(_p,{onClick:o,icon:jg,children:"Stop"})},Fg=Lt.ul`
   display: flex;
 
   max-width: 788px;
