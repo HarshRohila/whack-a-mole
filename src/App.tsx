@@ -6,6 +6,7 @@ import { Menu } from "./pages/Menu"
 import { Modal, ModalController } from "./components/Modal"
 
 import "bootstrap/dist/css/bootstrap.min.css"
+import "./App.css"
 import { useStateStream } from "./hooks/useStateStream"
 
 function App() {
