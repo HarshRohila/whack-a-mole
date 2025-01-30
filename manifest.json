@@ -1,0 +1,66 @@
+{
+	"name": "Whack a Mole!",
+	"description": "Whack a Mole! is a simple game where you have to whack the moles as they pop up from their holes.",
+	"short_name": "Whack a Mole!",
+	"start_url": "/whack-a-mole",
+	"display": "fullscreen",
+	"scope": "/whack-a-mole/",
+	"icons": [
+		{
+			"src": "assets/icon/icon-48x48.png",
+			"sizes": "48x48",
+			"type": "image/png",
+			"purpose": "maskable any"
+		},
+		{
+			"src": "assets/icon/icon-72x72.png",
+			"sizes": "72x72",
+			"type": "image/png",
+			"purpose": "maskable any"
+		},
+		{
+			"src": "assets/icon/icon-96x96.png",
+			"sizes": "96x96",
+			"type": "image/png",
+			"purpose": "maskable any"
+		},
+		{
+			"src": "assets/icon/icon-128x128.png",
+			"sizes": "128x128",
+			"type": "image/png",
+			"purpose": "maskable any"
+		},
+		{
+			"src": "assets/icon/icon-144x144.png",
+			"sizes": "144x144",
+			"type": "image/png",
+			"purpose": "maskable any"
+		},
+		{
+			"src": "assets/icon/icon-152x152.png",
+			"sizes": "152x152",
+			"type": "image/png",
+			"purpose": "maskable any"
+		},
+		{
+			"src": "assets/icon/icon-192x192.png",
+			"sizes": "192x192",
+			"type": "image/png",
+			"purpose": "maskable any"
+		},
+		{
+			"src": "assets/icon/icon-384x384.png",
+			"sizes": "384x384",
+			"type": "image/png",
+			"purpose": "maskable any"
+		},
+		{
+			"src": "assets/icon/icon-512x512.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "maskable any"
+		}
+	],
+	"background_color": "#fefceb",
+	"theme_color": "#fefceb"
+}
