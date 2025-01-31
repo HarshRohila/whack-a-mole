@@ -40,6 +40,11 @@ const LogoContainer = styled.div`
   .mole-img {
     width: 50%;
   }
+  @media only screen and (max-width: 1000px) and (orientation: landscape) {
+    .mole-img {
+      display: none;
+    }
+  }
 `
 
 const Menu: FC<MenuProps> = () => {
