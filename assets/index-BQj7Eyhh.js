@@ -190,4 +190,9 @@ Error generating stack: `+s.message+`
   .mole-img {
     width: 50%;
   }
+  @media only screen and (max-width: 1000px) and (orientation: landscape) {
+    .mole-img {
+      display: none;
+    }
+  }
 `,Zg=()=>D.jsxs(Yg,{children:[D.jsxs(Xg,{children:[D.jsx("img",{src:Cp,alt:"whack"}),D.jsx("img",{src:xp,className:"mole-img",alt:"mole"})]}),D.jsx("h1",{children:"Whack a Mole!"}),D.jsx(Kg,{children:D.jsx("li",{children:D.jsx(qg,{})})})]});function qg(){const o=()=>{Or.startGame()};return D.jsx(Rp,{onClick:o,icon:Ag,children:"Play Game"})}function Jg(){const[o,i]=C.useState(Gi.MENU);vv(Or.state$,({activePage:a})=>{i(a)});const u=Jy(Ks.state);return D.jsxs(D.Fragment,{children:[o===Gi.MENU&&D.jsx(Zg,{}),o===Gi.GAME&&D.jsx(Hg,{}),u&&D.jsx(pv,{modalData:u.modalData})]})}Im.createRoot(document.getElementById("root")).render(D.jsx(C.StrictMode,{children:D.jsx(Jg,{})}));
