@@ -67,10 +67,11 @@ const MoleContainer = styled.div`
   position: relative;
 `
 
+const whackSound = new Audio(moleWhackSound)
+
 const Hole: FC<HoleProps> = (props) => {
   const [isWhacked, setIsWhacked] = React.useState(false)
   const [showMole, setShowMole] = React.useState(false)
-  const whackSound = new Audio(moleWhackSound)
 
   React.useEffect(() => {
     setShowMole(props.showMole)

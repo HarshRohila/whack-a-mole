@@ -48,17 +48,45 @@ const Controls = styled.div`
 
 const GamePage: FC<GamePageProps> = () => {
   const [moleIndex, setMoleIndex] = useState<number | undefined>()
+  const [intervalDuration, setIntervalDuration] = useState(
+    Config.MOLE_INTERVAL_IN_MS
+  )
+  const [elapsedTime, setElapsedTime] = useState(0)
 
+  // generate random mole index every interval
   useEffect(() => {
     const interval = setInterval(() => {
       const randIndex = generateUniqueMoleIndex(moleIndex)
       setMoleIndex(randIndex)
-    }, Config.MOLE_INTERVAL_IN_MS)
+    }, intervalDuration)
 
     return () => {
       clearInterval(interval)
     }
   }, [moleIndex])
+
+  // effect to keep track of seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setElapsedTime((prevTime) => prevTime + 1)
+    }, 1000)
+
+    return () => {
+      clearInterval(timer)
+    }
+  }, [])
+
+  // effect to decrease interval duration every few seconds
+  useEffect(() => {
+    if (
+      elapsedTime > 0 &&
+      elapsedTime % Config.UPDATE_DIFFICULTY_INTERVAL_IN_SECS === 0
+    ) {
+      setIntervalDuration((prevDuration) =>
+        Math.max(prevDuration - 200, Config.MIN_MOLE_LIFE_IN_MS)
+      )
+    }
+  }, [elapsedTime])
 
   return (
     <Container>
