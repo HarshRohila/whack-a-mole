@@ -3,11 +3,11 @@ import { GamePage, GamePageService } from "./services/GamePageService"
 import { useSubscribe } from "./hooks/useSubscibe"
 import { GamePage as Game } from "./pages/GamePage"
 import { Menu } from "./pages/Menu"
-import { Modal, ModalController } from "./components/Modal"
+import { Modal } from "./components/Modal"
 
 import "bootstrap/dist/css/bootstrap.min.css"
 import "./App.css"
-import { useStateStream } from "./hooks/useStateStream"
+import { useModalStore } from "./components/Modal/store"
 
 function App() {
   const [gamePage, setGamePage] = useState(GamePage.MENU)
@@ -16,15 +16,21 @@ function App() {
     setGamePage(activePage)
   })
 
-  const modalState = useStateStream(ModalController.state)
-
   return (
-    <>
+    <useModalStore.Context>
       {gamePage === GamePage.MENU && <Menu />}
       {gamePage === GamePage.GAME && <Game />}
-      {modalState && <Modal modalData={modalState.modalData} />}
-    </>
+      <ModalContainer />
+    </useModalStore.Context>
   )
+}
+
+function ModalContainer() {
+  const modalStore = useModalStore()
+
+  const modalState = modalStore.state
+
+  return modalState && <Modal modalData={modalState.modalData} />
 }
 
 export default App

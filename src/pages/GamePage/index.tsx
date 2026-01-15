@@ -6,6 +6,7 @@ import { StopBtn } from "@app/components/StopBtn"
 import { GamePageService } from "@app/services/GamePageService"
 import { useStreamState } from "@app/utils/rx-state-utils"
 import { desktopCss } from "@app/utils/desktop-css"
+import { useModalStore } from "@app/components/Modal/store"
 
 const HolesContainer = styled.ul`
   display: flex;
@@ -136,9 +137,13 @@ function TimeLeft() {
     }
   }, [])
 
+  const modalStore = useModalStore()
+  const score = useStreamState(GamePageService.score$, 0)
+
   useEffect(() => {
     if (time === 0) {
       GamePageService.gameOver()
+      modalStore.showGameOverModal(score)
     }
   }, [time])
 
