@@ -17,16 +17,15 @@ class GameStore extends Store<{
   }
 
   startGame() {
-    this.setState({ ...this.getState(), score: 0, activePage: GamePage.GAME })
+    this.patchState({ score: 0, activePage: GamePage.GAME })
   }
 
   stopGame() {
-    this.setState({ ...this.getState(), activePage: GamePage.MENU })
+    this.patchState({ activePage: GamePage.MENU })
   }
 
   setScore(setter: (value: number) => number) {
-    const state = this.getState()
-    this.setState({ ...state, score: setter(state.score) })
+    this.patchState({ score: setter(this.getState().score) })
   }
 }
 

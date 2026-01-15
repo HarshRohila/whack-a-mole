@@ -11,7 +11,7 @@ class ModalStore extends Store<{ modalData: ModalData | undefined }> {
   }
 
   private showModal(data: ModalData) {
-    this.setState({ ...this.getState(), modalData: data })
+    this.patchState({ modalData: data })
   }
 
   showGameOverModal(score: number) {
@@ -22,7 +22,7 @@ class ModalStore extends Store<{ modalData: ModalData | undefined }> {
   }
 
   hideModal() {
-    this.setState({ ...this.getState(), modalData: undefined })
+    this.patchState({ modalData: undefined })
   }
 }
 

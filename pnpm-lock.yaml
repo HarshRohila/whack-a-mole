@@ -12,8 +12,8 @@ importers:
         specifier: ^5.3.3
         version: 5.3.3(@popperjs/core@2.11.8)
       context-scoped-state:
-        specifier: ^0.0.8
-        version: 0.0.8(react@18.3.1)
+        specifier: ^0.0.9
+        version: 0.0.9(react@18.3.1)
       lucide-react:
         specifier: ^0.474.0
         version: 0.474.0(react@18.3.1)
@@ -661,8 +661,8 @@ packages:
   concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
-  context-scoped-state@0.0.8:
-    resolution: {integrity: sha512-OxLZ4qyKXkTQNK5YqvKoMdBrV5b5ULAPg8KRkvXrbZjtglYf7t/DBFzfzJX279HGmxtmvv1xvsEmnuIWfn4Mxw==}
+  context-scoped-state@0.0.9:
+    resolution: {integrity: sha512-XDbw1M4tWhitLhGj6L8KImf7EtsRQKb1rnu3NGgdab5b1e/sWMPOr9AqPvug01kp3VMveP85/DQZKJyGwFJPFw==}
     peerDependencies:
       react: '>=18.0.0'
 
@@ -1775,7 +1775,7 @@ snapshots:
 
   concat-map@0.0.1: {}
 
-  context-scoped-state@0.0.8(react@18.3.1):
+  context-scoped-state@0.0.9(react@18.3.1):
     dependencies:
       react: 18.3.1
 
