@@ -1,13 +1,18 @@
-import { GamePageService } from "@app/services/GamePageService"
 import { FC } from "react"
 import { Button } from "../Button"
 import { CircleStop } from "../Icons"
+import { useModalStore } from "../Modal/store"
+import { useGameStore } from "@app/services/GameStore"
 
 interface StopBtnProps {}
 
 const StopBtn: FC<StopBtnProps> = () => {
+  const modalStore = useModalStore()
+  const gameStore = useGameStore()
+
   const handleClick = () => {
-    GamePageService.gameOver()
+    gameStore.stopGame()
+    modalStore.showGameOverModal(gameStore.state.score)
   }
 
   return (

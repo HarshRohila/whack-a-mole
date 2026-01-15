@@ -1,5 +1,4 @@
 import { css, styled } from "@app/libs/style"
-import { GamePageService } from "@app/services/GamePageService"
 import React, { FC } from "react"
 import dirt from "@app/assets/mole-hill.png"
 import mole from "@app/assets/mole-head.png"
@@ -7,6 +6,7 @@ import whack from "@app/assets/whack.png"
 import moleWhackSound from "@app/assets/whack.mp3"
 import Config from "@app/config"
 import { desktopCss } from "@app/utils/desktop-css"
+import { useGameStore } from "@app/services/GameStore"
 interface HoleProps {
   showMole: boolean
 }
@@ -85,9 +85,11 @@ const Hole: FC<HoleProps> = (props) => {
     }
   }, [showMole])
 
+  const gameStore = useGameStore()
+
   const handleClick = () => {
     if (showMole) {
-      GamePageService.setScore((prev) => prev + 1)
+      gameStore.setScore((prev) => prev + 1)
       setIsWhacked(true)
       setShowMole(false)
       whackSound.play()

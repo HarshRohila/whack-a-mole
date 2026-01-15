@@ -1,10 +1,10 @@
 import { styled } from "@app/libs/style"
-import { GamePageService } from "@app/services/GamePageService"
 import { FC } from "react"
 import { Button } from "@app/components/Button"
 import { Play } from "@app/components/Icons"
 import mole from "@app/assets/mole-head.png"
 import whack from "@app/assets/whack.png"
+import { useGameStore } from "@app/services/GameStore"
 
 interface MenuProps {}
 
@@ -65,8 +65,10 @@ const Menu: FC<MenuProps> = () => {
 }
 
 function StartBtn() {
+  const gameStore = useGameStore()
+
   const handleClick = () => {
-    GamePageService.startGame()
+    gameStore.startGame()
   }
 
   return (

@@ -3,9 +3,9 @@ import { Hole } from "@app/components/Hole"
 import { css, styled } from "@app/libs/style"
 import Config from "@app/config"
 import { StopBtn } from "@app/components/StopBtn"
-import { GamePageService } from "@app/services/GamePageService"
-import { useStreamState } from "@app/utils/rx-state-utils"
 import { desktopCss } from "@app/utils/desktop-css"
+import { useModalStore } from "@app/components/Modal/store"
+import { useGameStore } from "@app/services/GameStore"
 
 const HolesContainer = styled.ul`
   display: flex;
@@ -118,7 +118,8 @@ function generateUniqueMoleIndex(moleIndex: number | undefined) {
 }
 
 function Score() {
-  const score = useStreamState(GamePageService.score$, 0)
+  const gameStore = useGameStore()
+  const score = gameStore.state.score
 
   return <div>Score: {score}</div>
 }
@@ -136,9 +137,13 @@ function TimeLeft() {
     }
   }, [])
 
+  const modalStore = useModalStore()
+  const gameStore = useGameStore()
+
   useEffect(() => {
     if (time === 0) {
-      GamePageService.gameOver()
+      gameStore.stopGame()
+      modalStore.showGameOverModal(gameStore.state.score)
     }
   }, [time])
 

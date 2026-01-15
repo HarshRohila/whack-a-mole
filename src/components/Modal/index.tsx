@@ -1,7 +1,6 @@
 import { FC } from "react"
-import { ModalData } from "./controller"
 import Modal from "react-bootstrap/Modal"
-import { ModalController } from "./controller"
+import { ModalData, useModalStore } from "./store"
 
 interface ModalProps {
   modalData: ModalData | undefined
@@ -10,8 +9,10 @@ interface ModalProps {
 const ModalComponent: FC<ModalProps> = (props) => {
   const show = !!props.modalData
 
+  const modalStore = useModalStore()
+
   const handleClose = () => {
-    ModalController.hideModal()
+    modalStore.hideModal()
   }
 
   return (
@@ -28,4 +29,4 @@ const ModalComponent: FC<ModalProps> = (props) => {
   )
 }
 
-export { ModalComponent as Modal, ModalController }
+export { ModalComponent as Modal }
