@@ -7,6 +7,8 @@ import moleWhackSound from "@app/assets/whack.mp3"
 import Config from "@app/config"
 import { desktopCss } from "@app/utils/desktop-css"
 import { useGameStore } from "@app/services/GameStore"
+import { useHoleStore } from "./store"
+
 interface HoleProps {
   showMole: boolean
 }
@@ -70,30 +72,28 @@ const MoleContainer = styled.div`
 const whackSound = new Audio(moleWhackSound)
 
 const Hole: FC<HoleProps> = (props) => {
-  const [isWhacked, setIsWhacked] = React.useState(false)
-  const [showMole, setShowMole] = React.useState(false)
+  const holeStore = useHoleStore()
+  const { showMole, isWhacked } = holeStore.state
 
   React.useEffect(() => {
-    setShowMole(props.showMole)
-  }, [props.showMole])
+    holeStore.setShowMole(props.showMole)
+  }, [holeStore, props.showMole])
 
   React.useEffect(() => {
     if (showMole) {
       setTimeout(() => {
-        setShowMole(false)
+        holeStore.setShowMole(false)
       }, Config.MOLE_LIFE_TIME_IN_MS)
     }
-  }, [showMole])
+  }, [holeStore, showMole])
 
   const gameStore = useGameStore()
 
   const handleClick = () => {
     if (showMole) {
       gameStore.setScore((prev) => prev + 1)
-      setIsWhacked(true)
-      setShowMole(false)
+      holeStore.whackMole()
       whackSound.play()
-      setTimeout(() => setIsWhacked(false), 500)
     }
   }
 

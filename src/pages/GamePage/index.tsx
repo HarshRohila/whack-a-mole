@@ -6,6 +6,7 @@ import { StopBtn } from "@app/components/StopBtn"
 import { desktopCss } from "@app/utils/desktop-css"
 import { useModalStore } from "@app/components/Modal/store"
 import { useGameStore } from "@app/services/GameStore"
+import { useHoleStore } from "@app/components/Hole/store"
 
 const HolesContainer = styled.ul`
   display: flex;
@@ -97,7 +98,9 @@ const GamePage: FC<GamePageProps> = () => {
       <HolesContainer>
         {Array.from({ length: Config.HOLES_COUNT }).map((_, i) => (
           <li key={i}>
-            <Hole showMole={moleIndex === i} />
+            <useHoleStore.Context>
+              <Hole showMole={moleIndex === i} />
+            </useHoleStore.Context>
           </li>
         ))}
       </HolesContainer>
