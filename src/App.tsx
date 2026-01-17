@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import "./App.css"
 import { useModalStore } from "./components/Modal/store"
 import { GamePage, useGameStore } from "./services/GameStore"
+import { useGamePageStore } from "./pages/GamePage/store"
 
 function App() {
   return (
@@ -24,7 +25,11 @@ function GamePages() {
   return (
     <>
       {gamePage === GamePage.MENU && <Menu />}
-      {gamePage === GamePage.GAME && <Game />}
+      {gamePage === GamePage.GAME && (
+        <useGamePageStore.Context>
+          <Game />
+        </useGamePageStore.Context>
+      )}
     </>
   )
 }

@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react"
+import { FC, useEffect } from "react"
 import { Hole } from "@app/components/Hole"
 import { css, styled } from "@app/libs/style"
 import Config from "@app/config"
@@ -7,6 +7,7 @@ import { desktopCss } from "@app/utils/desktop-css"
 import { useModalStore } from "@app/components/Modal/store"
 import { useGameStore } from "@app/services/GameStore"
 import { useHoleStore } from "@app/components/Hole/store"
+import { useGamePageStore } from "./store"
 
 const HolesContainer = styled.ul`
   display: flex;
@@ -48,34 +49,32 @@ const Controls = styled.div`
 `
 
 const GamePage: FC<GamePageProps> = () => {
-  const [moleIndex, setMoleIndex] = useState<number | undefined>()
-  const [intervalDuration, setIntervalDuration] = useState(
-    Config.MOLE_INTERVAL_IN_MS
-  )
-  const [elapsedTime, setElapsedTime] = useState(0)
+  const gamePageStore = useGamePageStore()
+
+  const { moleIndex, intervalDuration, elapsedTime } = gamePageStore.state
 
   // generate random mole index every interval
   useEffect(() => {
     const interval = setInterval(() => {
-      const randIndex = generateUniqueMoleIndex(moleIndex)
-      setMoleIndex(randIndex)
+      gamePageStore.showMoleAtNewIndex(moleIndex)
     }, intervalDuration)
 
     return () => {
       clearInterval(interval)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [moleIndex])
 
   // effect to keep track of seconds
   useEffect(() => {
     const timer = setInterval(() => {
-      setElapsedTime((prevTime) => prevTime + 1)
+      gamePageStore.incrementElapsedTime()
     }, 1000)
 
     return () => {
       clearInterval(timer)
     }
-  }, [])
+  }, [gamePageStore])
 
   // effect to decrease interval duration every few seconds
   useEffect(() => {
@@ -83,11 +82,9 @@ const GamePage: FC<GamePageProps> = () => {
       elapsedTime > 0 &&
       elapsedTime % Config.UPDATE_DIFFICULTY_INTERVAL_IN_SECS === 0
     ) {
-      setIntervalDuration((prevDuration) =>
-        Math.max(prevDuration - 200, Config.MIN_MOLE_LIFE_IN_MS)
-      )
+      gamePageStore.reduceIntervalDuration()
     }
-  }, [elapsedTime])
+  }, [elapsedTime, gamePageStore])
 
   return (
     <Container>
@@ -111,15 +108,6 @@ const GamePage: FC<GamePageProps> = () => {
   )
 }
 
-function generateUniqueMoleIndex(moleIndex: number | undefined) {
-  let randIndex = generateRandomNumber(0, Config.HOLES_COUNT - 1)
-  while (randIndex === moleIndex) {
-    randIndex = generateRandomNumber(0, Config.HOLES_COUNT - 1)
-  }
-
-  return randIndex
-}
-
 function Score() {
   const gameStore = useGameStore()
   const score = gameStore.state.score
@@ -128,33 +116,30 @@ function Score() {
 }
 
 function TimeLeft() {
-  const [time, setTime] = useState(Config.GAME_DURATION_IN_SEC)
+  const gamePageStore = useGamePageStore()
+  const { timeLeft } = gamePageStore.state
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setTime((prev) => prev - 1)
+      gamePageStore.decrementTimeLeft()
     }, 1000)
 
     return () => {
       clearInterval(interval)
     }
-  }, [])
+  }, [gamePageStore])
 
   const modalStore = useModalStore()
   const gameStore = useGameStore()
 
   useEffect(() => {
-    if (time === 0) {
+    if (timeLeft === 0) {
       gameStore.stopGame()
       modalStore.showGameOverModal(gameStore.state.score)
     }
-  }, [time])
+  }, [gameStore, modalStore, timeLeft])
 
-  return <div>Time Left: {time}</div>
-}
-
-function generateRandomNumber(min: number, max: number) {
-  return Math.floor(Math.random() * (max - min + 1)) + min
+  return <div>Time Left: {timeLeft}</div>
 }
 
 export { GamePage }
